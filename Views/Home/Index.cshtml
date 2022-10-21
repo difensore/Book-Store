@@ -1,0 +1,80 @@
+﻿@model IndexViewModel
+
+<div class="app-main">
+    <div class="d-flex flex-grow-1">
+        <nav class="navbar navbar-light bg-light align-items-start">
+            <form method="get">
+                <label>Тип товару: </label>
+                <select name="TypeofProduct">
+                    <option value="">Всі</option>
+                    <option value="Книга">Книга</option>
+                    <option value="Гра">Гра</option>
+                </select>
+                <input type="submit" value="Фильтр" />
+            </form>
+        </nav>
+        <div class="app-main-content container-fluid">
+            <div class="position-absolute-flex">
+                <div class="scrollable">
+                    <div id="scroll-content-demo" class="d-flex flex-column flex-grow-1">
+                        <div class="row">
+                            <table>
+                                <tr>
+                                    <th>
+                                        <a asp-action="Index"
+                                           asp-route-page="@(Model.PageViewModel.PageNumber )"
+                                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+                                           asp-route-TypeofProduct="@(Model.FilterViewModel.SelectedName)">Назва</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
+                                           asp-route-page="@(Model.PageViewModel.PageNumber )"
+                                           asp-route-TypeofProduct="@(Model.FilterViewModel.SelectedName)">Ціна</a>
+                                    </th>
+                                </tr>
+                            </table>
+                            @foreach (var item in Model.Products)
+                            {
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="data:image;base64,@item.Image" height="300" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.Name</h5>
+                                            <p class="card-text">Автор: @item.Author</p>
+                                            <a asp-action="AddToBasket" asp-route-page="@(Model.PageViewModel.PageNumber )"
+                                           asp-route-TypeofProduct="@(Model.FilterViewModel.SelectedName)"
+                                           asp-route-sortOrder="@(Model.SortViewModel.Current)" asp-route-product="@item.Id" asp-route-action="0" class="btn btn-primary">@item.Price Грн</a>
+                                            <a asp-action="Description" asp-route-product="@item.Id" class="btn btn-primary">Детальніше</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <p>
+                                @if (Model.PageViewModel.HasPreviousPage)
+                                {
+                                    <a asp-action="Index"
+                                   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+                                   asp-route-TypeofProduct="@(Model.FilterViewModel.SelectedName)"
+                                   asp-route-sortOrder="@(Model.SortViewModel.Current)"
+                                   class="glyphicon glyphicon-chevron-left">
+                                        Назад
+                                    </a>
+                                }
+                                @if (Model.PageViewModel.HasNextPage)
+                                {
+                                    <a asp-action="Index"
+                                   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+                                   asp-route-TypeofProduct="@(Model.FilterViewModel.SelectedName)"
+                                   asp-route-sorOrder="@(Model.SortViewModel.Current)"
+                                   class="glyphicon glyphicon-chevron-right">
+                                        Вперед
+                                    </a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

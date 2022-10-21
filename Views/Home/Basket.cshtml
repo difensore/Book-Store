@@ -1,0 +1,19 @@
+﻿@model List<Products>
+<h1>Ваша корзина:</h1>
+<div class="card" >
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="data:image;base64,@item.Image" height="300" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">Автор: @item.Author</p>
+                    <a asp-action="Basket" asp-route-act="2" asp-route-product="@item.Id" class="btn btn-primary">Прибрати</a>
+                    <a asp-action="Description" asp-route-product="@item.Id" class="btn btn-primary">Детальніше</a>
+                </div>
+            </div>
+        </div>
+    }
+    <a asp-action="Purchase" class="btn btn-primary">Оформити заказ</a>
+</div>
