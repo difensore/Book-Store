@@ -21,5 +21,5 @@
                     <h2 class="mt-5">
                        Ціна: @Model.Price гривень
                     </h2>                    
-                    <button class="btn btn-primary btn-rounded">Додати до кошика</button>                                     
+                    <a asp-action="AddToBasket" asp-route-product="@Model.Id" asp-action="0" class="btn btn-primary">Додати до кошика</a>
                 </div>

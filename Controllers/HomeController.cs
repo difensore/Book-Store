@@ -11,7 +11,8 @@ namespace BookStore.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductsProvider _productsProvider;
         private readonly IBasketProvider _basket;
-        public HomeController(ILogger<HomeController> logger, IProductsProvider productsProvider, IBasketProvider basketProvider)
+        private readonly IOrdersProvider _orders;
+        public HomeController(ILogger<HomeController> logger, IProductsProvider productsProvider, IBasketProvider basketProvider, IOrdersProvider orders)
         {
             _logger = logger;
             _productsProvider = productsProvider;   
@@ -33,7 +34,7 @@ namespace BookStore.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                 Redirect("~/Identity/Account/Login");
+                return Redirect("~/Identity/Account/Login");
             }
             if (action == 0)
             {
@@ -63,9 +64,8 @@ namespace BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Purchase(int phone,string adrerss)
-        {
-
+        public IActionResult Purchase(int phone,string adreess)
+        {             
             return View("Purchased");
         }
 

@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductsProvider, ProductsProvider>();
 builder.Services.AddSingleton<IBasketProvider, Basketprovider>();
+builder.Services.AddTransient<IOrdersProvider, OrdersProvider>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
